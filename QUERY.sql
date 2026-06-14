@@ -21,3 +21,13 @@ CREATE TABLE Matches (
     )
   )
 );
+
+
+CREATE TABLE Bookings (
+  booking_id serial PRIMARY KEY,
+  user_id int NOT NULL REFERENCES Users (user_id),
+  match_id int NOT NULL REFERENCES Matches (match_id),
+  seat_number varchar(10),
+  payment_status varchar(50) CHECK (payment_status IN ('Pending', 'Confirmed', 'Cancelled', 'Refunded')),
+  total_cost decimal(10, 2) NOT NULL CHECK (total_cost >= 0)
+);
